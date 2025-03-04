@@ -1,0 +1,37 @@
+#barrasdevida {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    position: relative;
+    top: 1rem;
+  }
+
+  #barravida1,
+  #barravida2 {
+    height: 2rem;
+    width: 20rem;
+    background-color: black;
+    border: 2px solid black;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #barravida2 {
+    transform: scaleX(-1);
+    transform: skew(-20deg);
+    transition: width 0.5s ease-in-out;
+    color: red;
+    font-size: 45px;
+  }
+
+  #barravida1 {
+    transform: skew(20deg);
+    transition: width 0.5s ease-in;
+  }
+
+  .vida {
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    transition: width 0.5s ease-in-out;
+  }

@@ -1,0 +1,111 @@
+#personagens {
+    width: 100%;
+    position: relative;
+    top: 55%;
+    z-index: 2;
+    display: flex;
+    justify-content: space-around;
+
+  }
+
+  #personagens div {
+    height: 14rem;
+    width: 8rem;
+    cursor: pointer;
+  }
+
+  #p1 {
+    background-image: url('/assets/img/p1.gif');
+    background-position: center;
+    background-size: cover;
+  }
+
+  #p2 {
+    background-image: url('/assets/img/p2.gif');
+    background-position: center;
+    background-size: cover;
+    transform: scaleX(-1);
+  }
+
+  @keyframes rotação {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-15deg);
+    }
+
+    50% {
+        transform: rotate(15deg);
+    }
+
+    75% {
+        transform: rotate(-10deg);
+    }
+}
+
+.botõesAções{
+  position: absolute;
+  display: flex;
+  gap: 15px;
+  top: -3rem;
+  left: 5rem;
+}
+.açoesp2{
+  position: absolute;
+  display: flex;
+  gap: 15px;
+  top: -3rem;
+  left: 65rem;
+}
+
+.botõesAções button{
+  border-radius: 100%;
+  height: 2rem;
+  width: 5rem;
+}
+
+.botõesAções button:hover{
+  transform: scale(1.6);
+}
+
+.açoesp2 button{
+  border-radius: 100%;
+  height: 3rem;
+  width: 10rem;
+  background-image: url(/assets/img/interogação-removebg-preview-removebg-preview.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: black;
+  filter: drop-shadow(1px 1px 10px red);
+}
+
+#roubovida{
+  background-image: url(/assets/img/life\ steal.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#shuriken{
+  background-image: url(/assets/img/shuriken.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#cura{
+  background-image: url(/assets/img/medicine.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.ativop1 {
+  filter:drop-shadow(5px 5px 20px  purple)
+}
+.ativop2 {
+  filter:drop-shadow(5px 5px 20px  red)
+}

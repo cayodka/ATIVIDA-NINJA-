@@ -1,0 +1,40 @@
+
+@keyframes colorChange {
+    0% {
+      background-color: red;
+    }
+
+    25% {
+      background-color: blue;
+    }
+
+    50% {
+      background-color: green;
+    }
+
+    75% {
+      background-color: yellow;
+    }
+
+    100% {
+      background-color: purple;
+    }
+  }
+
+  #inputdado {
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    animation: rotação 1.5s infinite ease-in-out, colorChange 3s infinite;
+    background-position: center;
+    background-size: cover;
+    border: none;
+    background-color: transparent;
+    font-size: 45px;
+    visibility: hidden;
+    left: 47%;
+    position: relative;
+    border-radius: 5px;
+  }

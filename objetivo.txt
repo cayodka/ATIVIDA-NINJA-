@@ -1,0 +1,13 @@
+Objetivo: Quando o dado rolar, dar inicio a partida. Combate em turnos e dado definira quem começar.
+
+Jogar: Escolher uma das 3 habilidades do personagem para realizar uma ação, seja ela ofensiva, ou qualquer outra coisa que exista.
+
+=================================TAREFAS DE GAMEPLAY====================================
+
+1) Fazer o dado rolar - CONCLUIDA.
+2) Fazer com que, baseado no numero obtido apos rolamento, seja definido quem vai jogar primeiro.
+3) Fazer com que o player escolhida possa atacar.
+    3.1) O jogador podera usar alguma habilidade mas terá um contador.
+
+4) Depois de cada jogada(ou falta) do player o inimigo possa jogar tambem.
+5) Durante a jogada, o player inimigo que está jogando fica empedido de qualquer ação.

@@ -1,0 +1,9 @@
+*Dicas para o codigo*
+
+1) fazer um css, para cada coisa do coisa, tipo o css para player, global e etc.
+
+2) @import url, para ficar mais organizado.
+
+3) Não esquecer de concertar a rota.
+
+4) Usar calc() para deixar mais arrumado.
