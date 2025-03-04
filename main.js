@@ -1,5 +1,4 @@
 const music = new Audio("/assets/audio/bgm.mp3");
-const morte = new Audio("/assets/audio/morte.mp3");
 const somCura = new Audio("/assets/audio/potion.mp3");
 const espada = new Audio("/assets/audio/espada1.mp3")
 const espada2 = new Audio("assets/audio/espada2.mp3");
@@ -52,6 +51,21 @@ const aplicarDanoComNumero = () => {
     }
     verificarVitoria();
 };
+
+//===========================================//
+
+document.getElementById("shuriken").addEventListener("click", () => {
+    if (currentPlayer === 1) atacar();
+});
+
+document.getElementById("cura").addEventListener("click", () => {
+    if (currentPlayer === 1) curar();
+});
+
+document.getElementById("roubovida").addEventListener("click", () => {
+    if (currentPlayer === 1) roubovida();
+});
+
 
 const atacar = () => {
     if (!partidaIniciada || currentPlayer === null) return;
@@ -120,6 +134,8 @@ const roubovida = () => {
     setTimeout(alternarJogador, 1000);
 };
 
+//===============================================//
+
 const alternarJogador = () => {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
     indicarJogadorAtual();
@@ -173,6 +189,8 @@ const verificarVitoria = () => {
     }
 };
 
+//========================================================//
+
 const reiniciarPartida = () => {
     healthPlayer1 = 100;
     healthPlayer2 = 100;
@@ -196,17 +214,6 @@ document.getElementById("play").addEventListener("click", () => {
         partidaIniciada = true;
         music.play();
         document.getElementById("play").style.visibility = "hidden";
+        document.getElementById("inputdado").style.visibility = "visible";
     }
-});
-
-document.getElementById("shuriken").addEventListener("click", () => {
-    if (currentPlayer === 1) atacar();
-});
-
-document.getElementById("cura").addEventListener("click", () => {
-    if (currentPlayer === 1) curar();
-});
-
-document.getElementById("roubovida").addEventListener("click", () => {
-    if (currentPlayer === 1) roubovida();
 });
