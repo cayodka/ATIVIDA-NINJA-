@@ -3,6 +3,7 @@ const morte = new Audio("/assets/audio/morte.mp3");
 const somCura = new Audio("/assets/audio/potion.mp3");
 const espada = new Audio("/assets/audio/espada1.mp3")
 const espada2 = new Audio("assets/audio/espada2.mp3");
+const dead = new Audio("assets/audio/dead.mp3");
 
 let healthPlayer1 = 100;
 let healthPlayer2 = 100;
@@ -53,7 +54,7 @@ const aplicarDanoComNumero = () => {
 
 const atacar = () => {
     if (!partidaIniciada || currentPlayer === null) return;
-    
+
     const dano = aleatoriedade(5, 20);
     atualizarDanoNoInput(dano);
     if (currentPlayer === 1) {
@@ -75,7 +76,7 @@ const atacar = () => {
 
 const curar = () => {
     if (!partidaIniciada || currentPlayer === null) return;
-    
+
     const cura = 25;
     atualizarDanoNoInput(`+${cura}`);
     if (currentPlayer === 1) {
@@ -127,13 +128,13 @@ const alternarJogador = () => {
 const decidirAcaoPlayer2 = () => {
     if (!partidaIniciada) return;
     const escolha = Math.random();
-    
+
     if (escolha < 0.33) {
-        atacar(); 
+        atacar();
     } else if (escolha < 0.66) {
-        curar(); 
+        curar();
     } else {
-        roubovida(); 
+        roubovida();
     }
 };
 
@@ -154,14 +155,21 @@ const verificarVitoria = () => {
 
         setTimeout(() => {
             let vencedor = healthPlayer1 === 0 ? "Jogador 2 venceu!" : "Jogador 1 venceu!";
-            alert(vencedor);
-            reiniciarPartida();
+
+            if (healthPlayer1 === 0) {
+                dead.play();
+                document.getElementById("gameOverScreen").style.display = "flex";
+            }
+            setTimeout(() => {
+                document.getElementById("gameOverScreen").style.display = "none";
+                reiniciarPartida();
+            }, 6000);
         }, 1000);
     }
 };
 
 const reiniciarPartida = () => {
-    healthPlayer1 = 100;
+    healthPlayer1 = 10;
     healthPlayer2 = 100;
     atualizaVida(1, healthPlayer1);
     atualizaVida(2, healthPlayer2);
