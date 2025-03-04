@@ -109,3 +109,10 @@
 .ativop2 {
   filter:drop-shadow(5px 5px 20px  red)
 }
+.dano {
+  position: absolute;
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 10;
+}

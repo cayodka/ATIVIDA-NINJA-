@@ -22,19 +22,20 @@
   }
 
   #inputdado {
-    width: 80px;
-    height: 80px;
+    width: 15rem;
+    height: 15rem;
     text-align: center;
     align-items: center;
     justify-content: center;
-    animation: rotação 1.5s infinite ease-in-out, colorChange 3s infinite;
+    background-image: url(/assets/img/pergaminho.png);
     background-position: center;
     background-size: cover;
     border: none;
     background-color: transparent;
     font-size: 45px;
-    visibility: hidden;
-    left: 47%;
-    position: relative;
+    visibility: visible;
+    left: 30rem;
+    top: 4rem;
+    position: absolute;
     border-radius: 5px;
   }

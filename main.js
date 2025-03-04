@@ -1,6 +1,8 @@
 const music = new Audio("/assets/audio/bgm.mp3");
 const morte = new Audio("/assets/audio/morte.mp3");
 const somCura = new Audio("/assets/audio/potion.mp3");
+const espada = new Audio("/assets/audio/espada1.mp3")
+const espada2 = new Audio("assets/audio/espada2.mp3");
 
 let healthPlayer1 = 100;
 let healthPlayer2 = 100;
@@ -25,19 +27,46 @@ const indicarJogadorAtual = () => {
     document.getElementById("p2").classList.toggle("ativop2", currentPlayer === 2);
 };
 
+const atualizarDanoNoInput = (dano) => {
+    document.getElementById("inputdado").value = `-${dano}`;
+};
+
+const aplicarDanoComNumero = () => {
+    if (!partidaIniciada) return;
+
+    const dano = numeroAtual;
+    const jogadorEscolhido = escolherJogador();
+
+    if (jogadorEscolhido === 1) {
+        healthPlayer1 = Math.max(0, healthPlayer1 - dano);
+        atualizaVida(1, healthPlayer1);
+        animarJogador("p1");
+        tocarSom(1);
+    } else {
+        healthPlayer2 = Math.max(0, healthPlayer2 - dano);
+        atualizaVida(2, healthPlayer2);
+        animarJogador("p2");
+        tocarSom(2);
+    }
+    verificarVitoria();
+};
+
 const atacar = () => {
     if (!partidaIniciada || currentPlayer === null) return;
     
     const dano = aleatoriedade(5, 20);
+    atualizarDanoNoInput(dano);
     if (currentPlayer === 1) {
         healthPlayer2 = Math.max(0, healthPlayer2 - dano);
         atualizaVida(2, healthPlayer2);
         animarJogador("p2");
+        espada.play();
         tocarSom(2);
     } else {
         healthPlayer1 = Math.max(0, healthPlayer1 - dano);
         atualizaVida(1, healthPlayer1);
         animarJogador("p1");
+        espada.play();
         tocarSom(1);
     }
     verificarVitoria();
@@ -48,6 +77,7 @@ const curar = () => {
     if (!partidaIniciada || currentPlayer === null) return;
     
     const cura = 25;
+    atualizarDanoNoInput(`+${cura}`);
     if (currentPlayer === 1) {
         healthPlayer1 = Math.min(100, healthPlayer1 + cura);
         atualizaVida(1, healthPlayer1);
@@ -59,33 +89,33 @@ const curar = () => {
     setTimeout(alternarJogador, 1000);
 };
 
-// Habilidade "Roubo de Vida"
 const roubovida = () => {
     if (!partidaIniciada || currentPlayer === null) return;
 
-    const dano = aleatoriedade(5, 20); // Dano aleatório causado ao inimigo
-    const cura = 10; // Cura fixa de 10% da vida do jogador
+    const dano = aleatoriedade(5, 20);
+    const cura = 10;
+    atualizarDanoNoInput(`${dano}/${cura}`);
 
     if (currentPlayer === 1) {
-        // Player 1 usa o "Roubo de Vida"
-        healthPlayer2 = Math.max(0, healthPlayer2 - dano); // Dano causado ao player 2
-        healthPlayer1 = Math.min(100, healthPlayer1 + cura); // Cura o player 1 (10%)
+        healthPlayer2 = Math.max(0, healthPlayer2 - dano);
+        healthPlayer1 = Math.min(100, healthPlayer1 + cura);
         atualizaVida(1, healthPlayer1);
         atualizaVida(2, healthPlayer2);
         animarJogador("p2");
         tocarSom(2);
+        espada2.play();
     } else {
-        // Player 2 usa o "Roubo de Vida"
-        healthPlayer1 = Math.max(0, healthPlayer1 - dano); // Dano causado ao player 1
-        healthPlayer2 = Math.min(100, healthPlayer2 + cura); // Cura o player 2 (10%)
+        healthPlayer1 = Math.max(0, healthPlayer1 - dano);
+        healthPlayer2 = Math.min(100, healthPlayer2 + cura);
         atualizaVida(1, healthPlayer1);
         atualizaVida(2, healthPlayer2);
         animarJogador("p1");
         tocarSom(1);
+        espada2.play();
     }
 
     verificarVitoria();
-    setTimeout(alternarJogador, 1000); // Alterna para o outro jogador após a ação
+    setTimeout(alternarJogador, 1000);
 };
 
 const alternarJogador = () => {
@@ -96,8 +126,15 @@ const alternarJogador = () => {
 
 const decidirAcaoPlayer2 = () => {
     if (!partidaIniciada) return;
-    const escolha = Math.random() < 0.5 ? "atacar" : "curar";
-    escolha === "atacar" ? atacar() : curar();
+    const escolha = Math.random();
+    
+    if (escolha < 0.33) {
+        atacar(); 
+    } else if (escolha < 0.66) {
+        curar(); 
+    } else {
+        roubovida(); 
+    }
 };
 
 const animarJogador = (playerId) => {
@@ -155,7 +192,6 @@ document.getElementById("cura").addEventListener("click", () => {
     if (currentPlayer === 1) curar();
 });
 
-// Evento para o botão "Roubo de Vida"
 document.getElementById("roubovida").addEventListener("click", () => {
     if (currentPlayer === 1) roubovida();
 });

@@ -10,7 +10,7 @@ body {
   #chão {
     width: 100%;
     height: 100rem;
-    top: 5rem;
+    top: 10rem;
     position: relative;
     background-image: url(/assets/img/estrada.jpg);
     background-color: rgb(99, 99, 99);
@@ -69,8 +69,8 @@ body {
     cursor: pointer;
     transition: transform 0.2s;
     z-index: 3;
-    left: 45%;
-    top: -0rem;
+    left: 34rem;
+    top: 8rem;
     border: none;
     background-color: transparent;
   }
