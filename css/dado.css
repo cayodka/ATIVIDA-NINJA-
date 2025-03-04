@@ -1,41 +1,42 @@
 
-@keyframes colorChange {
-    0% {
-      background-color: red;
+  @keyframes colorChange {
+      0% {
+        background-color: red;
+      }
+
+      25% {
+        background-color: blue;
+      }
+
+      50% {
+        background-color: green;
+      }
+
+      75% {
+        background-color: yellow;
+      }
+
+      100% {
+        background-color: purple;
+      }
     }
 
-    25% {
-      background-color: blue;
-    }
-
-    50% {
-      background-color: green;
-    }
-
-    75% {
-      background-color: yellow;
-    }
-
-    100% {
-      background-color: purple;
-    }
+    #inputdado {
+      width: 11rem;
+      height: 10rem;
+      text-align: center;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      animation: shake 2s infinite linear;
+      border: none;
+      background-color: whitesmoke;
+      overflow: auto;
+      font-size: 45px;
+      visibility: hidden;
+      left: 32rem;
+      top: 4rem;
+      position: absolute;
+      border-radius: 5px;
   }
-
-  #inputdado {
-    width: 15rem;
-    height: 15rem;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    background-image: url(/assets/img/pergaminho.png);
-    background-position: center;
-    background-size: cover;
-    border: none;
-    background-color: transparent;
-    font-size: 45px;
-    visibility: hidden;
-    left: 30rem;
-    top: 4rem;
-    position: absolute;
-    border-radius: 5px;
-  }
+  

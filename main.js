@@ -1,14 +1,15 @@
 const music = new Audio("/assets/audio/bgm.mp3");
 const somCura = new Audio("/assets/audio/potion.mp3");
-const espada = new Audio("/assets/audio/espada1.mp3")
+const espada = new Audio("/assets/audio/espada1.mp3");
 const espada2 = new Audio("assets/audio/espada2.mp3");
-const dead = new Audio("assets/audio/dead.mp3");
+const dead = new Audio("/assets/audio/dead.mp3");
 const win = new Audio("/assets/audio/win.mp3");
 
 let healthPlayer1 = 100;
 let healthPlayer2 = 100;
 let currentPlayer = null;
 let partidaIniciada = false;
+let travaAtaqueRepetido = true;
 
 const aleatoriedade = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
 
@@ -20,6 +21,16 @@ const atualizaVida = (player, health) => {
 const escolherPrimeiroJogador = () => {
     currentPlayer = aleatoriedade(1, 2);
     indicarJogadorAtual();
+
+    
+    const inputDado = document.getElementById("inputdado");
+    inputDado.style.visibility = "visible"; 
+    inputDado.value = `Jogador ${currentPlayer}`;  
+    if (currentPlayer === 1) {
+        inputDado.style.backgroundColor = "purple"; 
+    } else {
+        inputDado.style.backgroundColor = "red"; 
+    }
     if (currentPlayer === 2) setTimeout(decidirAcaoPlayer2, 1000);
 };
 
@@ -31,28 +42,6 @@ const indicarJogadorAtual = () => {
 const atualizarDanoNoInput = (dano) => {
     document.getElementById("inputdado").value = `-${dano}`;
 };
-
-const aplicarDanoComNumero = () => {
-    if (!partidaIniciada) return;
-
-    const dano = numeroAtual;
-    const jogadorEscolhido = escolherJogador();
-
-    if (jogadorEscolhido === 1) {
-        healthPlayer1 = Math.max(0, healthPlayer1 - dano);
-        atualizaVida(1, healthPlayer1);
-        animarJogador("p1");
-        tocarSom(1);
-    } else {
-        healthPlayer2 = Math.max(0, healthPlayer2 - dano);
-        atualizaVida(2, healthPlayer2);
-        animarJogador("p2");
-        tocarSom(2);
-    }
-    verificarVitoria();
-};
-
-//===========================================//
 
 document.getElementById("shuriken").addEventListener("click", () => {
     if (currentPlayer === 1) atacar();
@@ -66,12 +55,19 @@ document.getElementById("roubovida").addEventListener("click", () => {
     if (currentPlayer === 1) roubovida();
 });
 
-
 const atacar = () => {
     if (!partidaIniciada || currentPlayer === null) return;
+    
+    if (!travaAtaqueRepetido) {
+        alert("Espere seu turno!");
+        return;
+    }
+
+    travaAtaqueRepetido = false; 
 
     const dano = aleatoriedade(5, 20);
     atualizarDanoNoInput(dano);
+
     if (currentPlayer === 1) {
         healthPlayer2 = Math.max(0, healthPlayer2 - dano);
         atualizaVida(2, healthPlayer2);
@@ -85,12 +81,23 @@ const atacar = () => {
         espada.play();
         tocarSom(1);
     }
+
     verificarVitoria();
-    setTimeout(alternarJogador, 1000);
+    setTimeout(() => {
+        alternarJogador();
+        travaAtaqueRepetido = true; 
+    }, 1000);
 };
 
 const curar = () => {
     if (!partidaIniciada || currentPlayer === null) return;
+    
+    if (!travaAtaqueRepetido) {
+        alert("Espere seu turno!");
+        return;
+    }
+
+    travaAtaqueRepetido = false;
 
     const cura = 25;
     atualizarDanoNoInput(`+${cura}`);
@@ -102,11 +109,22 @@ const curar = () => {
         atualizaVida(2, healthPlayer2);
     }
     somCura.play();
-    setTimeout(alternarJogador, 1000);
+
+    setTimeout(() => {
+        alternarJogador();
+        travaAtaqueRepetido = true;
+    }, 1000);
 };
 
 const roubovida = () => {
     if (!partidaIniciada || currentPlayer === null) return;
+    
+    if (!travaAtaqueRepetido) {
+        alert("Espere seu turno!");
+        return;
+    }
+
+    travaAtaqueRepetido = false;
 
     const dano = aleatoriedade(5, 20);
     const cura = 10;
@@ -131,14 +149,24 @@ const roubovida = () => {
     }
 
     verificarVitoria();
-    setTimeout(alternarJogador, 1000);
+    setTimeout(() => {
+        alternarJogador();
+        travaAtaqueRepetido = true;
+    }, 1000);
 };
-
-//===============================================//
 
 const alternarJogador = () => {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
     indicarJogadorAtual();
+
+    
+    const inputDado = document.getElementById("inputdado");
+    if (currentPlayer === 1) {
+        inputDado.style.backgroundColor = "purple"; 
+    } else {
+        inputDado.style.backgroundColor = "red"; 
+    }
+
     if (currentPlayer === 2) setTimeout(decidirAcaoPlayer2, 1000);
 };
 
@@ -168,17 +196,14 @@ const animarJogador = (playerId) => {
 const verificarVitoria = () => {
     if (healthPlayer1 === 0 || healthPlayer2 === 0) {
         partidaIniciada = false;
-        morte.play();
+        dead.play();
 
         setTimeout(() => {
-            let vencedor = healthPlayer1 === 0 ? "Jogador 2 venceu!" : "Jogador 1 venceu!";
-
             if (healthPlayer1 === 0) {
-                dead.play();
                 document.getElementById("gameOverScreen").style.display = "flex";
             } else {
                 win.play();
-                document.getElementById("gamewinScreen").style.display = "flex"; 
+                document.getElementById("gamewinScreen").style.display = "flex";
             }
             setTimeout(() => {
                 document.getElementById("gameOverScreen").style.display = "none";
@@ -189,8 +214,6 @@ const verificarVitoria = () => {
     }
 };
 
-//========================================================//
-
 const reiniciarPartida = () => {
     healthPlayer1 = 100;
     healthPlayer2 = 100;
@@ -198,6 +221,7 @@ const reiniciarPartida = () => {
     atualizaVida(2, healthPlayer2);
     partidaIniciada = false;
     currentPlayer = null;
+    travaAtaqueRepetido = true; 
     document.getElementById("p1").classList.remove("ativop1");
     document.getElementById("p2").classList.remove("ativop2");
     document.getElementById("play").style.visibility = "visible";
