@@ -12,7 +12,6 @@ body {
     height: 100rem;
     top: 10rem;
     position: relative;
-    background-image: url(/assets/img/estrada.jpg);
     background-color: rgb(99, 99, 99);
   }
 
@@ -168,4 +167,25 @@ body {
 .game-over-screen .game-over-gif {
     width: 100rem;
     height: auto;
+}
+
+.game-win-screen {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  z-index: 9999;
+}
+
+.game-win-screen .game-win-gif {
+  width: 100rem;
+  height: auto;
 }

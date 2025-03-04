@@ -4,6 +4,7 @@ const somCura = new Audio("/assets/audio/potion.mp3");
 const espada = new Audio("/assets/audio/espada1.mp3")
 const espada2 = new Audio("assets/audio/espada2.mp3");
 const dead = new Audio("assets/audio/dead.mp3");
+const win = new Audio("/assets/audio/win.mp3");
 
 let healthPlayer1 = 100;
 let healthPlayer2 = 100;
@@ -159,9 +160,13 @@ const verificarVitoria = () => {
             if (healthPlayer1 === 0) {
                 dead.play();
                 document.getElementById("gameOverScreen").style.display = "flex";
+            } else {
+                win.play();
+                document.getElementById("gamewinScreen").style.display = "flex"; 
             }
             setTimeout(() => {
                 document.getElementById("gameOverScreen").style.display = "none";
+                document.getElementById("gamewinScreen").style.display = "none";
                 reiniciarPartida();
             }, 6000);
         }, 1000);
@@ -169,7 +174,7 @@ const verificarVitoria = () => {
 };
 
 const reiniciarPartida = () => {
-    healthPlayer1 = 10;
+    healthPlayer1 = 100;
     healthPlayer2 = 100;
     atualizaVida(1, healthPlayer1);
     atualizaVida(2, healthPlayer2);
@@ -177,6 +182,7 @@ const reiniciarPartida = () => {
     currentPlayer = null;
     document.getElementById("p1").classList.remove("ativop1");
     document.getElementById("p2").classList.remove("ativop2");
+    document.getElementById("play").style.visibility = "visible";
 };
 
 const tocarSom = (jogador) => {
@@ -189,6 +195,7 @@ document.getElementById("play").addEventListener("click", () => {
         escolherPrimeiroJogador();
         partidaIniciada = true;
         music.play();
+        document.getElementById("play").style.visibility = "hidden";
     }
 });
 

@@ -22,6 +22,7 @@
     transition: width 0.5s ease-in-out;
     color: red;
     font-size: 45px;
+    z-index: 1;
   }
 
   #barravida1 {
